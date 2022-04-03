@@ -84,6 +84,22 @@ $ python train.py
 </div>
 
 ### B. Our experiments (Vision or language)
+> Training setup :
+
+    - GPU: Nvidia Tesla V100 16Gb
+    - Maximum question length: 30
+    - Maximum number of answers: 10
+    - Embedding size of feature vector (img & qst): 1024
+    - Word embedding size (inp. to Recurrent): 300
+    - Number of RNN layers: 2
+    - RNN hidden size: 512
+    - Optimizer: Adam
+    - LR: 0.001
+    - Num. epochs: 10
+    - batch size: 256
+    - Step size (StepLR Scheduler): 10
+    - Gamma (StepLR Scheduler): 0.1
+    - Automatic Mixed Precision: True
 
 To be added...
 
