@@ -39,9 +39,9 @@ $(your-env) pip install -r requirements.txt
 ```
 ### A. baseline models [1, 2, 3]
 > Evaluation metric of 'multiple choice'
-- Exp1: [1]'s model prediction to '<unk>' IS accepted as the answer.
-- Exp2: [1]'s model prediction to '<unk>' is NOT accepted as the answer.
-### Usage [From 1]
+- Exp1: [1]'s model prediction to '\<unk\>' IS accepted as the answer.
+- Exp2: [1]'s model prediction to '\<unk\>' is NOT accepted as the answer **(The reported accuracy)**.
+### Usage (From [Taebong Moon, 1])
 
 1. Clone the repositories.
 ```
@@ -77,7 +77,7 @@ $ python train.py
 | VGGNet | 2x2x512 LSTM| 63.09 | VQA v2 |  Multiple choice (All)| - |
 | VGG19 [Taebong Moon, 1]| 2x2x512 LSTM| 54.72 | VQA v2 | Multiple choice (All) | 30 |
 | VGG19| 2x2x512 LSTM (Our exp.)| **55.24** | VQA v2 | Multiple choice (All) | 10 |
-| resnet18| 3x2x256 LSTM (Our exp.)| - | VQA v2 | Multiple choice (All) | 25 |
+| resnet18| 3x2x256 LSTM (Our exp.)| **56.44** | VQA v2 | Multiple choice (All) | 25 |
 | resnet34| 2x2x256 LSTM (Our exp.)| - | VQA v2 | Multiple choice (All) | 10 |
 
 </center>
