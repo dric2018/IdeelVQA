@@ -76,15 +76,15 @@ $ python train.py
 | VGGNet-4096|None - Vision alone [Agrawal et. al, 2] | 30.53 | VQA v2 |  Multiple choice (All)| - |
 | VGGNet | 2x2x512 LSTM| 63.09 | VQA v2 |  Multiple choice (All)| - |
 | VGG19 [Taebong Moon, 1]| 2x2x512 LSTM| 54.72 | VQA v2 | Multiple choice (All) | 30 |
-| VGG19| 2x2x512 LSTM (Our exp.)| 55.24 | VQA v2 | Multiple choice (All) | 10 |
-| resnet18| 3x2x256 LSTM (Our exp.)| - | VQA v2 | Multiple choice (All) | 10 |
+| VGG19| 2x2x512 LSTM (Our exp.)| **55.24** | VQA v2 | Multiple choice (All) | 10 |
+| resnet18| 3x2x256 LSTM (Our exp.)| - | VQA v2 | Multiple choice (All) | 25 |
 | resnet34| 2x2x256 LSTM (Our exp.)| - | VQA v2 | Multiple choice (All) | 10 |
 
 </center>
 </div>
 
 ### B. Our experiments (Vision or language)
-> Training setup :
+> VGG19 Training setup :
 
     - GPU: Nvidia Tesla V100 16Gb
     - Maximum question length: 30
@@ -97,6 +97,23 @@ $ python train.py
     - LR: 0.001
     - Num. epochs: 10
     - batch size: 256
+    - Step size (StepLR Scheduler): 10
+    - Gamma (StepLR Scheduler): 0.1
+    - Automatic Mixed Precision: True
+
+> Resnet18 Training setup :
+
+    - GPU: Nvidia Tesla V100 16Gb
+    - Maximum question length: 30
+    - Maximum number of answers: 10
+    - Embedding size of feature vector (img & qst): 1024
+    - Word embedding size (inp. to Recurrent): 300
+    - Number of RNN layers: 3
+    - RNN hidden size: 512
+    - Optimizer: Adam
+    - LR: 0.001
+    - Num. epochs: 25
+    - batch size: 1024
     - Step size (StepLR Scheduler): 10
     - Gamma (StepLR Scheduler): 0.1
     - Automatic Mixed Precision: True
