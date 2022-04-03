@@ -29,8 +29,18 @@
 
 `PS: Download all datasets and save them under their approriate folders.`
 
-### 1. baseline models [1, 2, 3]
-
+You can create your virtual environment using anaconda with:
+```
+$ conda env create -f env.yml
+```
+Or install the dependencies using pip with
+```
+$(your-env) pip install -r requirements.txt
+```
+### A. baseline models [1, 2, 3]
+> Evaluation metric of 'multiple choice'
+- Exp1: [1]'s model prediction to '<unk>' IS accepted as the answer.
+- Exp2: [1]'s model prediction to '<unk>' is NOT accepted as the answer.
 ### Usage [From 1]
 
 1. Clone the repositories.
@@ -55,8 +65,26 @@ $ python build_vqa_inputs.py --input_dir='../../datasets' --output_dir='../../da
 $ cd ..
 $ python train.py
 ```
-### 2. Our experiments
 
+### 2. Results
+<div>
+<center>
+
+| ImageEncoder | QuestionEncoder | Accuracy | Dataset |  Metric | # Epochs |
+|--------------|-----------------|------| ------- | ------ | ---- |
+| None - Lang. alone [Agrawal et. al, 2] |LSTM Q: 1x1024 LSTM | 53.68 | VQA v2 | Multiple choice (All)| - |
+| VGGNet-4096|None - Vision alone [Agrawal et. al, 2] | 30.53 | VQA v2 |  Multiple choice (All)| - |
+| VGGNet | 2x2x512 LSTM| 63.09 | VQA v2 |  Multiple choice (All)| - |
+| VGG19| 2x2x512 LSTM| - | VQA v2 | Multiple choice (All) | 10 |
+| resnet18| 3x2x256 LSTM | - | VQA v2 | Multiple choice (All) | |
+| resnet34| 2x2x256 LSTM | - | VQA v2 | Multiple choice (All) | |
+
+</center>
+</div>
+
+### B. Our experiments (Vision or language)
+
+To be added...
 
 ## References
 [1]: baseline models implementation from [Taebong Moon' repository](https://github.com/tbmoon/basic_vqa).
