@@ -75,9 +75,10 @@ $ python train.py
 | None - Lang. alone [Agrawal et. al, 2] |LSTM Q: 1x1024 LSTM | 53.68 | VQA v2 | Multiple choice (All)| - |
 | VGGNet-4096|None - Vision alone [Agrawal et. al, 2] | 30.53 | VQA v2 |  Multiple choice (All)| - |
 | VGGNet | 2x2x512 LSTM| 63.09 | VQA v2 |  Multiple choice (All)| - |
-| VGG19| 2x2x512 LSTM| - | VQA v2 | Multiple choice (All) | 10 |
-| resnet18| 3x2x256 LSTM | - | VQA v2 | Multiple choice (All) | |
-| resnet34| 2x2x256 LSTM | - | VQA v2 | Multiple choice (All) | |
+| VGG19 [Taebong Moon, 1]| 2x2x512 LSTM| 54.72 | VQA v2 | Multiple choice (All) | 30 |
+| VGG19| 2x2x512 LSTM (Our exp.)| 55.24 | VQA v2 | Multiple choice (All) | 10 |
+| resnet18| 3x2x256 LSTM (Our exp.)| - | VQA v2 | Multiple choice (All) | 10 |
+| resnet34| 2x2x256 LSTM (Our exp.)| - | VQA v2 | Multiple choice (All) | 10 |
 
 </center>
 </div>
@@ -87,7 +88,7 @@ $ python train.py
 To be added...
 
 ## References
-[1]: baseline models implementation from [Taebong Moon' repository](https://github.com/tbmoon/basic_vqa).
+[1]: baseline models implementation from [Taebong Moon's repository](https://github.com/tbmoon/basic_vqa).
 
 [2]: Paper implementation
  - Paper: VQA: Visual Question Answering
