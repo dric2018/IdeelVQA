@@ -22,7 +22,7 @@ from train import train_model, test_model
 #     dropout = 0.1,
 #     emb_dropout = 0.1
 # )del
-from vqa import VQAModel, ViTModel
+from vqa import VQAModel, ViTModel, ViTBertModel
 #from san import SANModel
 from scheduler import CustomReduceLROnPlateau
 from vit_pytorch import ViT
@@ -81,6 +81,8 @@ def main(config):
         model = VQAModel(mode=config['mode'], **config['model']['params'])
     elif config['model']['type'] == 'vit':
         model = ViTModel(mode=config['mode'], **config['model']['params'])
+    elif config['model']['type'] == 'bert':
+        model = ViTBertModel(mode=config['mode'], **config['model']['params'])
 
 
     #elif config['model']['type'] == 'san':

@@ -5,6 +5,7 @@ import torchvision.transforms as transforms
 from PIL import Image
 from IPython.core.debugger import Pdb
 import numpy as np
+import pandas as pd
 
 
 class VQADataset(torch.utils.data.Dataset):
@@ -27,7 +28,10 @@ class VQADataset(torch.utils.data.Dataset):
         self.img_dir = img_dir
         self.phase = phase
         self.raw_images = raw_images    # if true, images and load images, not embeddings
-
+        data_path = os.path.join(data_dir, phase + '.tsv')
+        self.ques_data = pd.read_csv(f'{data_path}', delimiter='\t', names=['id', 'q', 'a', 'i'])
+        self.ques_data['id'] = self.ques_data['id'].tolist()
+        self.ques_data.set_index('id', inplace=True)
     def load_vocab(self, data_dir):
         ques_vocab_file = os.path.join(data_dir, 'ques_stoi.tsv')
         for line in open(ques_vocab_file):
@@ -52,7 +56,8 @@ class VQADataset(torch.utils.data.Dataset):
             img = self.transforms(img)
         else:
             img = torch.load('{}/{}/{}'.format(self.data_dir, self.img_dir, imgid))
-        return torch.from_numpy(ques), img, imgid, ans, ques_id
+        return self.ques_data.loc[int(ques_id)]['q'], img, imgid, ans, ques_id
+        # return torch.from_numpy(ques), img, imgid, ans, ques_id
 
 
 class RandomSampler:

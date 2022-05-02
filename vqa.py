@@ -6,6 +6,7 @@ import torchvision.models as models
 import torch.nn.functional as F
 import vit_pytorch
 from IPython.core.debugger import Pdb
+from transformers import BertTokenizer, BertModel
 
 
 class MutanFusion(nn.Module):
@@ -216,5 +217,64 @@ class ViTModel(nn.Module):
         #     combined = self.mutan(ques_embeddings, image_embeddings)
         # else:
         combined = image_embeddings * ques_embeddings
+        output = self.mlp(combined)
+        return output
+
+
+class ViTBertModel(nn.Module):
+
+    def __init__(self, vocab_size=10000, word_emb_size=300, emb_size=1024, output_size=1000, image_channel_type='I', ques_channel_type='lstm', use_mutan=True, mode='train', extract_img_features=True, features_dir=None):
+        super(ViTBertModel, self).__init__()
+        self.mode = mode
+        self.word_emb_size = word_emb_size
+        # self.image_channel = ImageEmbedding(image_channel_type, output_size=emb_size, mode=mode,
+        #                                     extract_features=extract_img_features, features_dir=features_dir)
+        self.model = vit_pytorch.ViT(image_size=256,
+                    patch_size=32,
+                    num_classes=1024,
+                    dim=1024,
+                    depth=6,
+                    heads=16,
+                    mlp_dim=2048,
+                    dropout=0.1,
+                    emb_dropout=0.1
+                    )
+        # NOTE the padding_idx below.
+        self.word_embeddings = nn.Embedding(vocab_size, word_emb_size)
+        self.tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
+        self.text = BertModel.from_pretrained("bert-base-uncased")
+        for param in self.text.parameters():
+            param.requires_grad = False
+            
+        if ques_channel_type.lower() == 'lstm':
+            self.ques_channel = QuesEmbedding(
+                input_size=word_emb_size, output_size=emb_size, num_layers=1, batch_first=False)
+        elif ques_channel_type.lower() == 'deeplstm':
+            self.ques_channel = QuesEmbedding(
+                input_size=word_emb_size, output_size=emb_size, num_layers=2, batch_first=False)
+        else:
+            msg = 'ques channel type not specified. please choose one of -  lstm or deeplstm'
+            print(msg)
+            raise Exception(msg)
+        self.mlp = nn.Sequential(
+            nn.Linear(1024 + 768, 1000),
+            nn.Dropout(p=0.5),
+            nn.Tanh(),
+            nn.Linear(1000, output_size))
+
+    def forward(self, images, questions, image_ids):
+        image_embeddings = self.model(images)
+
+        inputs = self.tokenizer(questions, return_tensors="pt", padding=True).to(image_embeddings.device)
+        outputs = self.text(**inputs)
+
+        last_hidden_states = outputs.last_hidden_state
+        ques_embeddings = last_hidden_states.sum(dim=1)
+        # embeds = self.word_embeddings(questions)
+        # ques_embeddings = self.ques_channel(embeds)
+        # if hasattr(self, 'mutan'):
+        #     combined = self.mutan(ques_embeddings, image_embeddings)
+        # else:
+        combined = torch.cat([image_embeddings, ques_embeddings], dim=1)
         output = self.mlp(combined)
         return output

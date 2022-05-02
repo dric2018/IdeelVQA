@@ -1,13 +1,13 @@
 prefix: vqa_sgd
 verbose: True
 mode: 'train'
-save_dir: '/home/medi/group-project/Visual-Question-Answering/scratch/vqa_sgd'
+save_dir: '/home/ubuntu/Visual-Question-Answering/scratch/vqa_sgd'
 use_gpu: True
 debug: False
 seed: 123213
 data:
     preprocess: True   # True/False - whether to preprocess vqa data files
-    dir: '/home/medi/group-project/Visual-Question-Answering/data' # root data directory
+    dir: '/home/ubuntu/data' # root data directory
     train:
         ques: 'v2_OpenEnded_mscoco_train2014_questions.json'
         ans: 'v2_mscoco_train2014_annotations.json'
@@ -32,7 +32,7 @@ data:
         img_dir: 'test2015'
 
 model:
-    type: vit
+    type: bert
     params:
         word_emb_size: 300
         emb_size: 1024
@@ -64,4 +64,4 @@ optim:
         # beta: 0.995     # beta used for adam
         # eps: 0.00001       # epsilon that goes into denominator in rmsprop
         weight_decay: 0.0005
-    n_epochs: 10
+    n_epochs: 50

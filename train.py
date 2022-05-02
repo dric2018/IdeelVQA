@@ -23,8 +23,9 @@ def train(model, dataloader, criterion, optimizer, use_gpu=False):
             batch_bar = tqdm(total=len(dataloader), dynamic_ncols=True, leave=False, position=0, desc='Train')
         # print('questions size: ', questions.size())
         if use_gpu:
-            questions, images, image_ids, answers = questions.cuda(), images.cuda(), image_ids.cuda(), answers.cuda()
-        questions, images, answers = Variable(questions).transpose(0, 1), Variable(images), Variable(answers)
+            questions, images, image_ids, answers = questions, images.cuda(), image_ids.cuda(), answers.cuda()#.cuda()
+        # questions, images, answers = Variable(questions).transpose(0, 1), Variable(images), Variable(answers)
+        images, answers = Variable(images), Variable(answers)
 
         # zero grad
         optimizer.zero_grad()
