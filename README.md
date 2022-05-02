@@ -1,4 +1,4 @@
-# IdeelVQA
+# IdeelVQA : CMU 11785 Introduction to deep learning [project]
 
 ## Setup
 ### Project structure 
