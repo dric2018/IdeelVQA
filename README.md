@@ -78,47 +78,19 @@ $ python train.py
 | VGG19 [Taebong Moon, 1]| 2x2x512 LSTM| 54.72 | VQA v2 | Multiple choice (All) | 30 |
 | VGG19| 2x2x512 LSTM (Our exp.)| **55.24** | VQA v2 | Multiple choice (All) | 10 |
 | resnet18| 3x2x256 LSTM (Our exp.)| **56.44** | VQA v2 | Multiple choice (All) | 25 |
-| resnet34| 2x2x256 LSTM (Our exp.)| - | VQA v2 | Multiple choice (All) | 10 |
+| ConvNext| None| 29.5 | VQA v2 | Multiple choice (All) | 30 |
+| None| 2x2x512 LSTM| 49.7 | VQA v2 | Multiple choice (All) | 30 |
+| ConvNext| 2x2x256 LSTM| 51.3 | VQA v2 | Multiple choice (All) | 30 |
+| resnet18| None| 28.3 | VQA v2 | Multiple choice (All) | 30 |
+| None| Roberta| 48.5 | VQA v2 | Multiple choice (All) | 30 |
+| resnet18| Roberta| **59.1** | VQA v2 | Multiple choice (All) | 30 |
+| MobilenetV2| None| TBA | VQA v2 | Multiple choice (All) | 30 |
+| None| 2x2x256 LSTM| TBA | VQA v2 | Multiple choice (All) | 30 |
+| MobilenetV2| 2x2x256 LSTM| TBA | VQA v2 | Multiple choice (All) | 30 |
+| ViT| LSTM| 47 | VQA v2 | Multiple choice (All) | 30 |
 
 </center>
 </div>
-
-### B. Our experiments (Vision or language)
-> VGG19 Training setup :
-
-    - GPU: Nvidia Tesla V100 16Gb
-    - Maximum question length: 30
-    - Maximum number of answers: 10
-    - Embedding size of feature vector (img & qst): 1024
-    - Word embedding size (inp. to Recurrent): 300
-    - Number of RNN layers: 2
-    - RNN hidden size: 512
-    - Optimizer: Adam
-    - LR: 0.001
-    - Num. epochs: 10
-    - batch size: 256
-    - Step size (StepLR Scheduler): 10
-    - Gamma (StepLR Scheduler): 0.1
-    - Automatic Mixed Precision: True
-
-> Resnet18 Training setup :
-
-    - GPU: Nvidia Tesla V100 16Gb
-    - Maximum question length: 30
-    - Maximum number of answers: 10
-    - Embedding size of feature vector (img & qst): 1024
-    - Word embedding size (inp. to Recurrent): 300
-    - Number of RNN layers: 3
-    - RNN hidden size: 512
-    - Optimizer: Adam
-    - LR: 0.001
-    - Num. epochs: 25
-    - batch size: 1024
-    - Step size (StepLR Scheduler): 10
-    - Gamma (StepLR Scheduler): 0.1
-    - Automatic Mixed Precision: True
-
-To be added...
 
 ## References
 [1]: baseline models implementation from [Taebong Moon's repository](https://github.com/tbmoon/basic_vqa).
